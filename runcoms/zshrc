@@ -11,3 +11,34 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+export SUBLIME=subl
+export EDITOR="$SUBLIME --wait"
+export VISUAL=$EDITOR
+export LSCOLORS="Gxfxcxdxbxegedabagacad"
+export RBENV_HOME=$HOME/.rbenv
+export NPM_HOME=/usr/local/share/npm
+export PATH=$NPM_HOME/bin:$HEROKU_HOME/bin:$GITX_HOME:$RBENV_HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+
+alias l="ls -la"
+alias f="find . -iname"
+alias ff="find . -type f -iname"
+hs() { history | grep $* }
+alias ...='cd ../..'
+mcd() { mkdir -p "$1" && cd "$1" }
+
+# Confs
+alias reload=". ~/.zshrc"
+alias conf="$SUBLIME ~/.zshrc"
+
+alias s="subl"
+alias s.="subl ."
+
+unsetopt CORRECT
+
+if which rbenv > /dev/null; then eval "$(rbenv init - --no-rehash)"; fi
+export PATH=$HOME/bin:$PATH
+
+autoload -Uz promptinit
+promptinit
+prompt steeef
