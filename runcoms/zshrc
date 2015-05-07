@@ -34,7 +34,17 @@ alias conf="$SUBLIME ~/.zshrc"
 alias s="subl"
 alias s.="subl ."
 
+cj() { curl -X POST -d $1 -H 'Content-type: application/json' $2 }
+
 unsetopt CORRECT
+
+# pip should only run if there is a virtualenv currently activated
+export PIP_REQUIRE_VIRTUALENV=true
+# cache pip-installed packages to avoid re-downloading
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
+gpip(){
+   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
 
 if which rbenv > /dev/null; then eval "$(rbenv init - --no-rehash)"; fi
 export PATH=$HOME/bin:$PATH
