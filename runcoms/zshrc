@@ -13,12 +13,17 @@ fi
 # Customize to your needs...
 
 export SUBLIME=subl
-export EDITOR="$SUBLIME --wait"
+export VSCODE=code
+export EDITOR="$VSCODE --wait"
 export VISUAL=$EDITOR
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export RBENV_HOME=$HOME/.rbenv
 export NPM_HOME=/usr/local/share/npm
-export PATH=$NPM_HOME/bin:$HEROKU_HOME/bin:$GITX_HOME:$RBENV_HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export NVM_DIR="$HOME/.nvm"
+  . "/usr/local/opt/nvm/nvm.sh"
+export GOPATH="$HOME/Projects/go"
+export FLUTTER="$HOME/Projects/dart/flutter"
+export PATH=$NPM_HOME/bin:$RBENV_HOME/bin:/usr/local/bin:/usr/local/sbin:$FLUTTER/bin:$PATH
 
 alias l="ls -la"
 alias f="find . -iname"
@@ -29,7 +34,7 @@ mcd() { mkdir -p "$1" && cd "$1" }
 
 # Confs
 alias reload=". ~/.zshrc"
-alias conf="$SUBLIME ~/.zshrc"
+alias conf="$EDITOR ~/.zshrc"
 
 alias s="subl"
 alias s.="subl ."
@@ -52,3 +57,11 @@ export PATH=$HOME/bin:$PATH
 autoload -Uz promptinit
 promptinit
 prompt steeef
+
+# The next line updates PATH for the Google Cloud SDK.
+source '/Users/patrick/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+source '/Users/patrick/google-cloud-sdk/completion.zsh.inc'
+
+eval "$(direnv hook zsh)"
