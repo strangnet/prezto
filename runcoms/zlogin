@@ -21,3 +21,5 @@ if (( $+commands[fortune] )); then
     print
   fi
 fi
+
+export HOMEBREW_GITHUB_API_TOKEN=b5b07992662492236009b5094e5daad4257305b3

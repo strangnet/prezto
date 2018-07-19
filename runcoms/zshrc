@@ -13,12 +13,19 @@ fi
 # Customize to your needs...
 
 export SUBLIME=subl
-export EDITOR="$SUBLIME --wait"
+export ATOM=atom
+# export EDITOR="$SUBLIME --wait"
+export VSCODE=code
+export EDITOR="$VSCODE"
 export VISUAL=$EDITOR
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export RBENV_HOME=$HOME/.rbenv
 export NPM_HOME=/usr/local/share/npm
-export PATH=$NPM_HOME/bin:$HEROKU_HOME/bin:$GITX_HOME:$RBENV_HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+export NVM_DIR=~/.nvm
+export GOPATH=~/Projects/misc/go
+export PATH=$HOME/bin:$HOME/Projects/misc/flutter/bin:$NPM_HOME/bin:$HEROKU_HOME/bin:$GITX_HOME:$RBENV_HOME/bin:/usr/local/bin:/usr/local/sbin:$PATH
+#export KUBECONFIG=~/kubernetes/admin.conf
+export KUBECONFIG=~/Projects/devops/citynetworks/kube-config
 
 alias l="ls -la"
 alias f="find . -iname"
@@ -49,6 +56,52 @@ gpip(){
 if which rbenv > /dev/null; then eval "$(rbenv init - --no-rehash)"; fi
 export PATH=$HOME/bin:$PATH
 
+source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
+source $(brew --prefix nvm)/nvm.sh
+source <(kubectl completion zsh)
+# if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 autoload -Uz promptinit
 promptinit
 prompt steeef
+
+#source /usr/local/dev-env/ansible/mac_profile
+
+# The next line updates PATH for the Google Cloud SDK.
+#source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc'
+
+# The next line enables shell command completion for gcloud.
+#source '/opt/homebrew-cask/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc'
+
+dockerssh() {
+
+    # get container ID
+    if [ "$1" = "-id" ]; then
+        id=$2
+    else
+        id=`docker ps -aqf "name=$1"`
+    fi
+
+    # Check if the id can be used or not
+    size=${#id}
+
+    if [ "$size" -eq 12 ]; then
+        docker exec -i -t $id /bin/bash
+    else
+        docker ps -f "name=$1"
+        echo ""
+        echo "Please be more specific"
+    fi
+}
+
+alias docker-ssh=dockerssh
+
+PATH="/Users/patstr/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/patstr/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/patstr/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/patstr/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/patstr/perl5"; export PERL_MM_OPT;
+eval "$(direnv hook zsh)"
+#eval "$(goenv init -)"
+
+# added by travis gem
+[ -f /Users/patstr/.travis/travis.sh ] && source /Users/patstr/.travis/travis.sh
